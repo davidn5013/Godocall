@@ -1,7 +1,5 @@
-// Package main godocs run go doc -all och all sub folder containing .go files from current path
-/* The purpose is to update a README.md with all the
-   project documentation for easy access an search on first package
-*/
+// godocall runs go doc -all on all sub folder containing .go files from current path
+// The purpose is to update a README.md with all the project documentation for easy access an search on first page.
 package main
 
 import (
@@ -37,6 +35,8 @@ func main() {
 				return nil
 			}
 
+			// NOT I thing this can be much fast i print to large buffer instead
+			// I did do this in my Rule 110 source code if remember correct.
 			fmt.Println(string(out))
 
 		}
