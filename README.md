@@ -4,8 +4,12 @@ Runs go doc -all on all sub folder with .go files
 
 ## Running direct from github
 
+
 ```
 cd [source path]
+```
+
+```
 go run github.com/davidn5013/godocall@latest
 ```
 
