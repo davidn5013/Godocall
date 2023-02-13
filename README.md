@@ -26,4 +26,8 @@ cd [source path]
 godocall 
 ```
 
+## TODO
+
+Look in the main.go for TODO but the first thing is to make argument for non-verbose. Showing 'Running 'go doc -all' for directory:' on every file is not needed.
+
 / David
