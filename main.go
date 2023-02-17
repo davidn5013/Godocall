@@ -3,6 +3,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"os/exec"
@@ -10,8 +11,22 @@ import (
 )
 
 func main() {
-	// TODO argument for path
+	verbose := flag.Bool("verbose", false, "Enable verbose output")
+	path := flag.String("path", "", "Root path to run godocall")
+	flag.Parse()
 	root := "."
+
+	if *path != "" {
+		_, err := os.Stat(*path)
+		if os.IsNotExist(err) {
+			fmt.Printf("Error: The specified path '%s' does not exist.\n", *path)
+			os.Exit(1)
+		} else if err != nil {
+			fmt.Printf("Error: Failed to check the specified path '%s': %v\n", *path, err)
+			os.Exit(1)
+		}
+		root = *path
+	}
 
 	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -23,7 +38,9 @@ func main() {
 		if !info.IsDir() && filepath.Ext(info.Name()) == ".go" {
 
 			// TODO argument for non verbose
-			fmt.Printf("Running 'go doc -all' for directory: %s\n", path)
+			if *verbose {
+				fmt.Printf("Running 'go doc -all' for directory: %s\n", path)
+			}
 
 			// TODO argument for what command to run
 			cmd := exec.Command("go", "doc", "-all")
